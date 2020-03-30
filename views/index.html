@@ -1,0 +1,93 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Insta Top Posts</title>
+    <meta name="description" content="Top posts on your insta account" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- import the webpage's stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app" class="container-fluid">
+      <div class="jumbotron">
+        <h1 class="display-4">Insta Top Posts</h1>
+        <p class="lead">
+          Find your top insta posts
+        </p>
+        <hr class="my-4" />
+        <form v-on:submit.prevent="processAccount">
+          <div class="form-group">
+            <label for="account">Account</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="account"
+              aria-describedby="accountHelp"
+              placeholder="Eg: dinnerduelduo"
+              v-model:title="account"
+              required
+            />
+            <small id="accountHelp" class="form-text text-muted"
+              >Enter your instagram account name</small
+            >
+          </div>
+          <button class="btn btn-primary btn-lg">
+            <template v-if="loading">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span>Crunching...</span>
+            </template>
+            <template v-else>
+              <span>Crunch It!</span>
+            </template>
+          </button>
+        </form>
+      </div>
+      <div v-if="posts.length > 0" class="row row-cols-1 row-cols-md-3">
+        <div v-for="post in posts" :key="post.shortcode" class="col mb-4">
+          <div class="card">
+            <a v-bind:href="'https://www.instagram.com/p/' + post.shortcode" target="_blank">
+              <img v-bind:src="post.thumbnail" class="card-img-top" alt="" />
+            </a>
+            <div class="card-body">
+              <p v-show="post.caption" class="card-text" v-html="nl2br(post.caption)"></p>
+              <p class="card-text">
+                <small class="text-muted">
+                  Total likes:
+                  <span class="badge badge-pill badge-info"
+                    >{{ post.likes }}</span
+                  >
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="/client.js" defer></script>
+</html>

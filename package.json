@@ -1,0 +1,26 @@
+{
+  "name": "insta-top",
+  "version": "0.1.0",
+  "description": "Little utility that displays an instagram profile's posts ordered by likes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "instagram-web-api": "^2.0.0"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/instatop"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express",
+    "instagram"
+  ]
+}
